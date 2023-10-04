@@ -43,7 +43,7 @@ class TareasControllerTest extends TestCase
         $response->assertStatus(200);
 
         $logData = [
-            'ruta' => 'http://127.0.0.1:8003/api/Almacen',
+            'ruta' => 'http://127.0.0.1:8000/api/tarea',
             'Titulo' => $response->getStatusCode(),
             'Contenido' => $response->getStatusCode(),
             'Estado' => $response->getContent(),
