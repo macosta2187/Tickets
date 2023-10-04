@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Tareas extends Model
 {
 
+    use HasFactory;
+    protected $table = 'Tareas';
+    use SoftDeletes;
 }
 
 
