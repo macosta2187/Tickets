@@ -13,6 +13,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/tarea', [TareasController::class, 'Insertar']);
 Route::get('/tarea', [TareasController::class, 'ListarTodo']);
-Route::get('tareas/{id}', [TareasController::class, 'ListarId']);
+Route::get('tarea/{id}', [TareasController::class, 'ListarId']);
 Route::delete('/tarea/{id}', [TareasController::class, 'Eliminar']);
 Route::post('/tarea/{id}', [TareasController::class, 'Actualizar']);

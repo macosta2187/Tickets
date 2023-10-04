@@ -83,5 +83,20 @@ class TareasController extends Controller
     }
 }
 
+     public function ListarPorTitulo(Request $request, $titulo)
+{
+    try {
+        $tareas = Tareas::where('Titulo', $titulo)->get();
+        
+        if ($tareas->isEmpty()) {
+            return response()->json(['error' => 'Tarea no encontrada'], 404);
+        }
+
+        return response()->json($tareas);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Error al buscar tareas por título: ' . $e->getMessage()], 500);
+    }
+}
+
 
 }
