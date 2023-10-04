@@ -37,6 +37,19 @@ class TareasController extends Controller
         return response(['error' => 'La tarea no existe'], 404);
     }
 
+    public function Actualizar(Request $request, $idtarea)
+    {
 
+        $almacen = Almacen::findOrFail($idalmacen);
+        $almacen->nombre = $request->input('nombre');
+        $almacen->calle = $request->input('calle');
+        $almacen->numero = $request->input('numero');
+        $almacen->localidad = $request->input('localidad');
+        $almacen->departamento = $request->input('departamento');        
+        $almacen->telefono = $request->input('telefono');
+        $almacen->save();
+        return response()->json($almacen);
+
+    }
 
 }
