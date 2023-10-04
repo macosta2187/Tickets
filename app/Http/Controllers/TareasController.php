@@ -12,44 +12,51 @@ class TareasController extends Controller
 
     public function Insertar(Request $request)
     {
-
-        $tareas = new Tarea;
-        $tareas->Titulo = $request->input('nombre');
-        $tareas->Contenido = $request->input('calle');
-        $tareas->Estado = $request->input('numero');
-        $tareas->Autor = $request->input('localidad');        
-        $tareas->save();
-        return response()->json(['message' => 'Tarea creada exitosamente'], 200);
-
+        try {
+            $tareas = new Tarea;
+            $tareas->Titulo = $request->input('nombre');
+            $tareas->Contenido = $request->input('calle');
+            $tareas->Estado = $request->input('numero');
+            $tareas->Autor = $request->input('localidad');        
+            $tareas->save();
+    
+            return response()->json(['message' => 'Tarea creada exitosamente'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al crear la tarea: ' . $e->getMessage()], 500);
+        }
     }
-
-
+    
     public function Eliminar(Request $request, $id)
     {
-
-        $tareas = Tarea::find($id);
-
-        if ($tareas) {
+        try {
+            $tareas = Tarea::find($id);
+    
+            if (!$tareas) {
+                return response()->json(['error' => 'La tarea no existe'], 404);
+            }
+    
             $tareas->delete();
-            return response()->json(['error' => 'La tarea esta borrado'], 200);
+    
+            return response()->json(['message' => 'La tarea ha sido eliminada exitosamente'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al eliminar la tarea: ' . $e->getMessage()], 500);
         }
-
-        return response(['error' => 'La tarea no existe'], 404);
     }
-
+    
     public function Actualizar(Request $request, $idtarea)
     {
-
-        $almacen = Almacen::findOrFail($idalmacen);
-        $almacen->nombre = $request->input('nombre');
-        $almacen->calle = $request->input('calle');
-        $almacen->numero = $request->input('numero');
-        $almacen->localidad = $request->input('localidad');
-        $almacen->departamento = $request->input('departamento');        
-        $almacen->telefono = $request->input('telefono');
-        $almacen->save();
-        return response()->json($almacen);
-
+        try {
+            $tarea = Tarea::findOrFail($idtarea);
+            $tarea->Titulo = $request->input('nombre');
+            $tarea->Contenido = $request->input('calle');
+            $tarea->Estado = $request->input('numero');
+            $tarea->Autor = $request->input('localidad');        
+            $tarea->save();
+    
+            return response()->json(['message' => 'Tarea actualizada exitosamente'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al actualizar la tarea: ' . $e->getMessage()], 500);
+        }
     }
 
 }
