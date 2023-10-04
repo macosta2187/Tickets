@@ -24,7 +24,18 @@ class TareasController extends Controller
     }
 
 
+    public function Eliminar(Request $request, $id)
+    {
 
+        $tareas = Tarea::find($id);
+
+        if ($tareas) {
+            $tareas->delete();
+            return response()->json(['error' => 'La tarea esta borrado'], 200);
+        }
+
+        return response(['error' => 'La tarea no existe'], 404);
+    }
 
 
 
