@@ -15,10 +15,10 @@ class TareasController extends Controller
     {
         try {
             $tareas = new Tareas;
-            $tareas->Titulo = $request->input('nombre');
-            $tareas->Contenido = $request->input('calle');
-            $tareas->Estado = $request->input('numero');
-            $tareas->Autor = $request->input('localidad');        
+            $tareas->Titulo = $request->input('Titulo');
+            $tareas->Contenido = $request->input('Contenido');
+            $tareas->Estado = $request->input('Estado');
+            $tareas->Autor = $request->input('Autor');        
             $tareas->save();
     
             return response()->json(['message' => 'Tarea creada exitosamente'], 200);
@@ -48,10 +48,10 @@ class TareasController extends Controller
     {
         try {
             $tarea = Tareas::findOrFail($idtarea);
-            $tarea->Titulo = $request->input('nombre');
-            $tarea->Contenido = $request->input('calle');
-            $tarea->Estado = $request->input('numero');
-            $tarea->Autor = $request->input('localidad');        
+            $tareas->Titulo = $request->input('Titulo');
+            $tareas->Contenido = $request->input('Contenido');
+            $tareas->Estado = $request->input('Estado');
+            $tareas->Autor = $request->input('Autor');      
             $tarea->save();
     
             return response()->json(['message' => 'Tarea actualizada exitosamente'], 200);
@@ -60,11 +60,24 @@ class TareasController extends Controller
         }
     }
 
-    public function Listar(Request $request)
+    public function ListarTodo(Request $request)
     {
 
         $tarea = Tareas::all();
         return response()->json($tarea);
     }
+
+
+    
+    public function ListarId(Request $request, $id)
+{
+    try {
+        $tarea = Tareas::findOrFail($id);
+        return response()->json($tarea);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Tarea no encontrada'], 404);
+    }
+}
+
 
 }
