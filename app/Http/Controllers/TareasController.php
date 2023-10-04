@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tareas;
+use Illuminate\Database\QueryException;
 
 
 class TareasController extends Controller
@@ -62,13 +63,16 @@ class TareasController extends Controller
 
     public function ListarTodo(Request $request)
     {
-
-        $tarea = Tareas::all();
-        return response()->json($tarea);
+        try {
+            $tareas = Tarea::all();
+            return response()->json($tareas);
+        } catch (QueryException $e) {
+            return response()->json(['error' => 'Error al listar tareas: ' . $e->getMessage()], 500);
+        }
     }
 
 
-    
+
     public function ListarId(Request $request, $id)
 {
     try {
